@@ -59,7 +59,7 @@ ul_button_list.appendChild(li_3)
 const div_footer = document.createElement("div");
 div_footer.classList = "footer";
 const span_footer = document.createElement("span");
-span_footer.innerHTML = 'Powered by <a class="link" href="https://github.com/Mozzo1000/issue-bear">Issue Bear</a>';
+span_footer.innerHTML = 'Powered by <a class="link" href="https://github.com/Mozzo1000/issue-bear" target="_blank">Issue Bear</a>';
 div_footer.appendChild(span_footer);
 
 

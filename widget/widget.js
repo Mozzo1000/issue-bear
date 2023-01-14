@@ -69,7 +69,7 @@ const div_issue_page = document.createElement("div");
 div_issue_page.style.display = "none";
 
 const button_back = document.createElement("button");
-button_back.classList = "button-icon";
+button_back.classList = "button-icon no-stretch";
 button_back.addEventListener("click", goToListPage);
 button_back.innerText = "Back";
 
@@ -139,9 +139,11 @@ function closeWidget() {
 function goToListPage() {
     ul_button_list.style.display = "block";
     div_issue_page.style.display = "none";
+    button_close_widget.style.display = "block";
 }
 
 function goToIssuePage() {
+    button_close_widget.style.display = "none";
     ul_button_list.style.display = "none";
     div_issue_page.style.display = "block";
     h2_title.innerText = "Report an issue"
@@ -150,6 +152,7 @@ function goToIssuePage() {
 }
 
 function goToQuestionPage() {
+    button_close_widget.style.display = "none";
     ul_button_list.style.display = "none";
     div_issue_page.style.display = "block";
     button_screenshot.style.display = "none";
@@ -158,6 +161,7 @@ function goToQuestionPage() {
 }
 
 function goToOtherPage() {
+    button_close_widget.style.display = "none";
     ul_button_list.style.display = "none";
     div_issue_page.style.display = "block";
     button_screenshot.style.display = "none";

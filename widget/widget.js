@@ -168,16 +168,8 @@ function goToOtherPage() {
 function takeScreenshot() {
     var screenshot = document.documentElement
         .cloneNode(true);
-    screenshot.style.pointerEvents = 'none';
-    screenshot.style.overflow = 'hidden';
-    screenshot.style.webkitUserSelect = 'none';
-    screenshot.style.mozUserSelect = 'none';
-    screenshot.style.msUserSelect = 'none';
-    screenshot.style.oUserSelect = 'none';
-    screenshot.style.userSelect = 'none';
-    screenshot.dataset.scrollX = window.scrollX;
-    screenshot.dataset.scrollY = window.scrollY;
-    var blob = new Blob([screenshot.outerHTML], {
+    screenshot.querySelector("div.widget-popup").style.display = "none";
+    var blob = new Blob([screenshot.innerHTML], {
         type: 'text/html'
     });
     return blob;

@@ -1,8 +1,8 @@
 from flask import Flask, url_for
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
-from models import db, ma
-from config import Config
+from api.models import db, ma
+from api.config import Config
 
 app = Flask(__name__)
 app.config.from_object(Config)

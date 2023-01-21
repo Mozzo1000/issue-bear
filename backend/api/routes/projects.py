@@ -3,6 +3,7 @@ from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, get_jwt_identity, get_jwt)
 from api.models import Project, ProjectSchema, User, db
 from sqlalchemy.exc import IntegrityError
+import uuid
 
 projects_endpoint = Blueprint('projects', __name__)
 
@@ -68,5 +69,18 @@ def add_member(id):
     try:
         project.save_to_db()
         return jsonify({'message': 'New member added.'}), 200
+    except:
+        return jsonify({'message': 'Something went wrong'}), 500
+
+@projects_endpoint.route('/v1/projects/<id>/token', methods=["PUT"])
+@jwt_required()
+def generate_new_token(id):
+    current_user = User.find_by_email(get_jwt_identity())
+    project = Project.query.filter(Project.id==id, Project.members.any(id=current_user.id)).first()
+    new_token = uuid.uuid4().hex
+    project.token = new_token
+    try:
+        project.save_to_db()
+        return jsonify({'message': 'New token generated for project.', 'token': new_token}), 200
     except:
         return jsonify({'message': 'Something went wrong'}), 500

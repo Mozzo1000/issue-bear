@@ -63,7 +63,7 @@ class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     url = db.Column(db.String, nullable=True)
-    token = db.Column(db.String, nullable=False, default=uuid.uuid4().hex)
+    token = db.Column(db.String, nullable=False, default=uuid.uuid4().hex, unique=True)
     members = db.relationship("User", secondary="user_projects", backref="projects")
     issues = db.relationship("Issue")
 

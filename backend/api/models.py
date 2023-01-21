@@ -42,6 +42,22 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         fields = ("id", "name", "email", "role", "status")
 
 
+class Issue(db.Model):
+    __tablename__ = "issues"
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String, nullable=False)
+    email = db.Column(db.String, nullable=True)
+    tag = db.Column(db.String, nullable=False, default="other")
+    project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+class IssueSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Issue
+
 class Project(db.Model):
     __tablename__ = "projects"
     id = db.Column(db.Integer, primary_key=True)
@@ -49,6 +65,7 @@ class Project(db.Model):
     url = db.Column(db.String, nullable=True)
     token = db.Column(db.String, nullable=False, default=uuid.uuid4().hex)
     members = db.relationship("User", secondary="user_projects", backref="projects")
+    issues = db.relationship("Issue")
 
     def save_to_db(self):
         db.session.add(self)
@@ -56,6 +73,7 @@ class Project(db.Model):
 
 class ProjectSchema(ma.SQLAlchemyAutoSchema):
     members = ma.List(ma.Nested(UserSchema(only=("id", "name",))))
+    issues = ma.List(ma.Nested(IssueSchema()))
     class Meta:
         model = Project
 

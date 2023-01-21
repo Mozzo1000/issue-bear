@@ -1,8 +1,15 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+import uuid
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 ma = Marshmallow()
+
+user_projects = db.Table("user_projects", 
+                        db.Column("user_id", db.Integer, db.ForeignKey("users.id")),
+                        db.Column("project_id", db.Integer, db.ForeignKey("projects.id")))
+
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -34,6 +41,23 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         model = User
         fields = ("id", "name", "email", "role", "status")
 
+
+class Project(db.Model):
+    __tablename__ = "projects"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+    url = db.Column(db.String, nullable=True)
+    token = db.Column(db.String, nullable=False, default=uuid.uuid4().hex)
+    members = db.relationship("User", secondary="user_projects", backref="projects")
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+class ProjectSchema(ma.SQLAlchemyAutoSchema):
+    members = ma.List(ma.Nested(UserSchema(only=("id", "name",))))
+    class Meta:
+        model = Project
 
 class RevokedTokenModel(db.Model):
     __tablename__ = 'revoked_tokens'

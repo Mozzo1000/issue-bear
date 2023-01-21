@@ -6,6 +6,7 @@ from api.config import DevConfig, ProdConfig
 import os
 from api.routes.auth import auth_endpoint
 from api.routes.projects import projects_endpoint
+from api.routes.issues import issues_endpoint
 
 app = Flask(__name__)
 if os.environ.get("FLASK_DEBUG") == "1":
@@ -19,6 +20,7 @@ jwt = JWTManager(app)
 
 app.register_blueprint(auth_endpoint)
 app.register_blueprint(projects_endpoint)
+app.register_blueprint(issues_endpoint)
 
 @app.route("/")
 def index():

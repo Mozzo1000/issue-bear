@@ -90,7 +90,7 @@ function Register() {
                         </div>
                         <Button className="w-full" type="submit" disabled={registerButtonDisabled}>Create an account</Button>
                         <p className="text-sm font-light text-gray-500">
-                            Already have an account? <a href="#" className="font-medium text-blue-600 hover:underline">Login here</a>
+                            Already have an account? <Link to="/login" className="font-medium text-blue-600 hover:underline">Login here</Link>
                         </p>
                     </form>
                 </Card>

@@ -52,7 +52,7 @@ function Login() {
                         </div>
                         <Button className="w-full" type="submit">Sign in</Button>
                         <p className="text-sm font-light text-gray-500">
-                            Don’t have an account yet? <a href="#" className="font-medium text-blue-600 hover:underline">Sign up</a>
+                            Don’t have an account yet? <Link to="/register" className="font-medium text-blue-600 hover:underline">Sign up</Link>
                         </p>
                     </form>
                 </Card>

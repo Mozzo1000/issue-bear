@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, get_jwt_identity, get_jwt)
-from api.models import Project, ProjectSchema, Issue
+from api.models import Project, ProjectSchema, Issue, User, db
 
 issues_endpoint = Blueprint('issues', __name__)
 
@@ -15,3 +15,17 @@ def add_issue(token):
     new_issue = Issue(description=request.json["description"], email=email, tag=request.json["tag"], project_id=project.id)
     new_issue.save_to_db()
     return jsonify({'message': 'New issue added.'}), 200
+
+@issues_endpoint.route('/v1/issues/<id>', methods=["DELETE"])
+@jwt_required()
+def remove_issue(id):
+    current_user = User.find_by_email(get_jwt_identity())
+    issue = Issue.query.filter(Issue.id==id).first()
+    project = Project.query.filter(Project.id==issue.project_id, Project.members.any(id=current_user.id)).first()
+    print(project)
+    if project:
+        db.session.delete(issue)
+        db.session.commit()
+        return jsonify({'message': 'Issue has been removed.'}), 200
+    else:
+        return jsonify({'message': 'Unable to delete, issue does not belong to a project you are a member of.'}), 400

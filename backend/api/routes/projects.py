@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, get_jwt_identity, get_jwt)
 from api.models import Project, ProjectSchema, User, db
+from sqlalchemy.exc import IntegrityError
 
 projects_endpoint = Blueprint('projects', __name__)
 
@@ -29,8 +30,14 @@ def add_project():
     current_user = User.find_by_email(get_jwt_identity())
     new_project = Project(name=request.json["name"], url=url)
     new_project.members.append(current_user)
-    new_project.save_to_db()
-    return jsonify({'message': f'New project created, ID={new_project.id}'}), 201
+    try:
+        new_project.save_to_db()
+        return jsonify({'message': 'New project created'}), 201
+    except IntegrityError:
+        return jsonify({
+            "error": "Server error",
+            "message": "Could not generate a unique token, try again later."
+        }), 500
 
 @projects_endpoint.route('/v1/projects/<id>', methods=["DELETE"])
 @jwt_required()

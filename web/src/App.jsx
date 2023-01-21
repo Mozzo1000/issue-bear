@@ -3,6 +3,7 @@ import AuthService from './services/auth.service';
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ToastContainer from "./ToastContainer";
+import NavigationMenu from "./components/Navbar";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -10,14 +11,14 @@ function PrivateRoute({ children }) {
 }
 
 function App() {
-
   return (
     <div>
       <Router>
+        <NavigationMenu />
         <Routes>
-          <Route index element={<PrivateRoute><h1>hellooo</h1></PrivateRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route index element={<PrivateRoute><h1>hellooo</h1></PrivateRoute>} />
         </Routes>
       </Router>
       <ToastContainer />

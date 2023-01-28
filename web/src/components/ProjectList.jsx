@@ -5,7 +5,13 @@ import { useToast } from '../useToast';
 
 function ProjectList(props) {
     const [list, setList] = useState();
+    const [activeProject, setActiveProject] = useState();
     const toast = useToast(4000);
+
+    const selectProject = (item) => {
+        setActiveProject(item.id);
+        props.onSelect(item)
+    };
 
     useEffect(() => {
         ProjectsService.getAll().then(
@@ -29,7 +35,7 @@ function ProjectList(props) {
             <h1 className="text-lg font-bold indent-4">Projects</h1>
             <ListGroup>
                 {list?.map(item => {
-                    return <ListGroup.Item key={item.id} onClick={() => props.onSelect(item)}>
+                    return <ListGroup.Item key={item.id} onClick={() => selectProject(item)} active={item.id == activeProject}>
                         {item.name}
                     </ListGroup.Item>
                 })}

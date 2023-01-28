@@ -60,9 +60,9 @@ function IssuePane(props) {
                                             </div>
                                         }
                                     </div>
-                                    <div className="flex flex-wrap space-x-4">
-                                        <Button className="basis-1/2" disabled={!item.email}>Reply</Button>
-                                        <Button color="failure" className="basis-1/4">Delete</Button>
+                                    <div className="flex flex-row justify-between">
+                                        <Button className="basis-1/4" disabled={!item.email}>Reply</Button>
+                                        <Button color="failure" className="">Delete</Button>
                                     </div>
                                 </Card>
                             )

@@ -1,5 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow, fields
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -73,9 +73,14 @@ class Project(db.Model):
 
 class ProjectSchema(ma.SQLAlchemyAutoSchema):
     members = ma.List(ma.Nested(UserSchema(only=("id", "name",))))
-    issues = ma.List(ma.Nested(IssueSchema()))
     class Meta:
         model = Project
+
+class ProjectsWithIssues(ma.SQLAlchemyAutoSchema):
+    issues = ma.List(ma.Nested(IssueSchema()))
+    class Meta:
+        model = Project()
+        fields = ("id","issues",)
 
 class RevokedTokenModel(db.Model):
     __tablename__ = 'revoked_tokens'

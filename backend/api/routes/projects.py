@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify, abort
 from flask_jwt_extended import (create_access_token, create_refresh_token,
                                 jwt_required, get_jwt_identity, get_jwt)
-from api.models import Project, ProjectSchema, User, db
+from api.models import Project, ProjectSchema, User, db, ProjectsWithIssues
 from sqlalchemy.exc import IntegrityError
 import uuid
 
@@ -14,6 +14,14 @@ def get_projects():
     current_user = User.find_by_email(get_jwt_identity())
     projects = Project.query.filter(Project.members.any(id=current_user.id)).all()
     return jsonify(projects_schema.dump(projects))
+
+@projects_endpoint.route("/v1/projects/<id>/issues")
+@jwt_required()
+def get_issues(id):
+    projects_issue_schema = ProjectsWithIssues()
+    current_user = User.find_by_email(get_jwt_identity())
+    projects = Project.query.filter(Project.id==id, Project.members.any(id=current_user.id)).first()
+    return jsonify(projects_issue_schema.dump(projects))
 
 @projects_endpoint.route("/v1/projects", methods=["POST"])
 @jwt_required()

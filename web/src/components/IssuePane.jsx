@@ -2,6 +2,7 @@ import { Card, Button, Avatar, Badge, Spinner } from 'flowbite-react';
 import React, { useState, useEffect } from 'react'
 import projectsService from '../services/projects.service';
 import { useToast } from '../useToast';
+import TokenInfoCTA from './TokenInfoCTA';
 
 function IssuePane(props) {
     const [content, setContent] = useState();
@@ -69,7 +70,10 @@ function IssuePane(props) {
                         })}
                     </div>
                     {content.issues.length <= 0 &&
-                        <p>No issues found</p>
+                        <>
+                            <p>No issues found</p>
+                            <TokenInfoCTA id={props.id} />
+                        </>
                     }
                 </>
             }

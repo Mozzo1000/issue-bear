@@ -7,6 +7,14 @@ import uuid
 
 projects_endpoint = Blueprint('projects', __name__)
 
+@projects_endpoint.route("/v1/projects/<id>")
+@jwt_required()
+def get_project(id):
+    projects_schema = ProjectSchema()
+    current_user = User.find_by_email(get_jwt_identity())
+    project = Project.query.filter(Project.id==id, Project.members.any(id=current_user.id)).first()
+    return jsonify(projects_schema.dump(project))
+
 @projects_endpoint.route("/v1/projects")
 @jwt_required()
 def get_projects():

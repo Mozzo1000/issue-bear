@@ -55,7 +55,7 @@ function ProjectPane(props) {
                 <>
                     <div className="flex flex-row justify-between">
                         <h1 className="text-lg font-bold pb-2">{props.project.name}</h1>
-                        <Dropdown label="More" size="xs" outline={true}>
+                        <Dropdown label="More" size="xs" outline={true} color="gray">
                             <Dropdown.Item onClick={toggleTokenModal}>
                                 Token
                             </Dropdown.Item>

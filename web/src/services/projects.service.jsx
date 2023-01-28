@@ -3,6 +3,10 @@ import authHeader from "./auth-header";
 
 const API_URL = "/v1/projects";
 
+const get = (id) => {
+    return axios.get(API_URL + "/" + id, { headers: authHeader() })
+};
+
 const getAll = () => {
     return axios.get(API_URL, { headers: authHeader() })
 };
@@ -20,6 +24,7 @@ const generateToken = (id) => {
 };
 
 export default {
+    get,
     getAll,
     getIssues,
     add,

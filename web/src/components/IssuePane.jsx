@@ -24,6 +24,16 @@ function IssuePane(props) {
         )
     }, [props.id])
 
+    const renderTagBadge = (value) => {
+        let color = "info"
+        if (value == "bug") {
+            color = "failure"
+        } else if (value == "question") {
+            color = "warning"
+        }
+        return <Badge color={color}>{value}</Badge>
+    }
+
     return (
         <div>
             <h1 className="text-lg font-bold pb-2">Issues</h1>
@@ -35,7 +45,7 @@ function IssuePane(props) {
                                 <Card key={item.id}>
                                     <div className="flex flex-col space-y-2">
                                         <div className="flex flex-wrap">
-                                            <Badge>{item.tag}</Badge>
+                                            {renderTagBadge(item.tag)}
                                         </div>
                                         <p>{item.description}</p>
                                         {item.email &&

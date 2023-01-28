@@ -32,7 +32,7 @@ function IssuePane(props) {
                     <div className="flex flex-col space-y-10">
                         {content.issues.map(item => {
                             return (
-                                <Card>
+                                <Card key={item.id}>
                                     <div className="flex flex-col space-y-2">
                                         <div className="flex flex-wrap">
                                             <Badge>{item.tag}</Badge>

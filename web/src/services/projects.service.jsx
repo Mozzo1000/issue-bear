@@ -15,8 +15,13 @@ const add = (name, url) => {
     return axios.post(API_URL, { name, url }, { headers: authHeader() })
 };
 
+const generateToken = (id) => {
+    return axios.put(API_URL + "/" + id + "/token", {}, { headers: authHeader() })
+};
+
 export default {
     getAll,
     getIssues,
     add,
+    generateToken,
 };

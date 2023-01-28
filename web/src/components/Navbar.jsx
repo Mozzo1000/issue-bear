@@ -1,6 +1,6 @@
 import { Avatar, Dropdown, Navbar } from 'flowbite-react'
 import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from "../assets/logo.svg";
 import AuthService from '../services/auth.service';
 
@@ -43,11 +43,11 @@ function NavigationMenu() {
 
             <Navbar.Toggle />
             <Navbar.Collapse>
-                <Navbar.Link href="#">
-                    Dashboard
+                <Navbar.Link>
+                    <Link to="/">Dashboard</Link>
                 </Navbar.Link>
-                <Navbar.Link href="#">
-                    About
+                <Navbar.Link>
+                    <Link to="/about">About</Link>
                 </Navbar.Link>
             </Navbar.Collapse>
         </Navbar>

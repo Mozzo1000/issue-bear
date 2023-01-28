@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ToastContainer from "./ToastContainer";
 import NavigationMenu from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -18,7 +19,7 @@ function App() {
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route index element={<PrivateRoute><h1>hellooo</h1></PrivateRoute>} />
+          <Route index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
         </Routes>
       </Router>
       <ToastContainer />

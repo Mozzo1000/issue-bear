@@ -2,6 +2,7 @@ import { Dropdown, Modal, Label, TextInput, Button } from 'flowbite-react'
 import React, { useState, useEffect } from 'react'
 import ProjectsService from '../services/projects.service';
 import { useToast } from '../useToast';
+import ManageMembers from './ManageMembers';
 
 function ProjectPane(props) {
     const [openTokenModal, setOpenTokenModal] = useState(false);
@@ -55,6 +56,7 @@ function ProjectPane(props) {
                 <>
                     <div className="flex flex-row justify-between">
                         <h1 className="text-lg font-bold pb-2">{props.project.name}</h1>
+                        <ManageMembers btnText="Share" id={props.project.id} />
                         <Dropdown label="More" size="xs" outline={true} color="gray">
                             <Dropdown.Item onClick={toggleTokenModal}>
                                 Token

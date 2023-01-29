@@ -12,6 +12,7 @@ function TokenInfoCTA(props) {
         ProjectsService.get(props.id).then(
             response => {
                 setToken(response.data.token);
+                console.log("CTA GET TOKEN!")
             },
             error => {
                 const resMessage =
@@ -24,7 +25,7 @@ function TokenInfoCTA(props) {
             }
         )
 
-    }, [])
+    }, [props.id])
 
     const copyTokenToClipboard = () => {
         navigator.clipboard.writeText(token);

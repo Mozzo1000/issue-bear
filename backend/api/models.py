@@ -72,7 +72,6 @@ class Project(db.Model):
         db.session.commit()
 
 class ProjectSchema(ma.SQLAlchemyAutoSchema):
-    members = ma.List(ma.Nested(UserSchema(only=("id", "name",))))
     class Meta:
         model = Project
 
@@ -81,6 +80,12 @@ class ProjectsWithIssues(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Project()
         fields = ("id","issues",)
+
+class ProjectsWithMembers(ma.SQLAlchemyAutoSchema):
+    members = ma.List(ma.Nested(UserSchema(only=("id", "name",))))
+    class Meta:
+        model = Project()
+        fields = ("id","members",)
 
 class RevokedTokenModel(db.Model):
     __tablename__ = 'revoked_tokens'

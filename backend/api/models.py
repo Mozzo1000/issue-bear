@@ -82,7 +82,7 @@ class ProjectsWithIssues(ma.SQLAlchemyAutoSchema):
         fields = ("id","issues",)
 
 class ProjectsWithMembers(ma.SQLAlchemyAutoSchema):
-    members = ma.List(ma.Nested(UserSchema(only=("id", "name",))))
+    members = ma.List(ma.Nested(UserSchema(only=("id", "name", "email",))))
     class Meta:
         model = Project()
         fields = ("id","members",)

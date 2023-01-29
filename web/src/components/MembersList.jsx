@@ -7,10 +7,21 @@ function MembersList(props) {
     const toast = useToast(4000);
 
     useEffect(() => {
+        getMembers();
+    }, [props.id])
+
+    useEffect(() => {
+        if (props.update) {
+            getMembers();
+            props.afterUpdate();
+
+        }
+    }, [props.update])
+
+    const getMembers = () => {
         ProjectsService.getMembers(props.id).then(
             response => {
                 setMembers(response.data);
-                toast("success", response.data.message);
             },
             error => {
                 const resMessage =
@@ -23,8 +34,7 @@ function MembersList(props) {
                 toast("error", resMessage);
             }
         )
-    }, [props.id])
-
+    };
 
     return (
         <>

@@ -6,6 +6,7 @@ import InviteMember from './InviteMember';
 
 function Members(props) {
     const [showModal, setShowModal] = useState(false);
+    const [refreshMembersList, setRefreshMembersList] = useState(false);
     const toast = useToast(4000);
 
     const onClickShowModal = () => {
@@ -20,8 +21,8 @@ function Members(props) {
                     Share your project
                 </Modal.Header>
                 <Modal.Body>
-                    <InviteMember id={props.id} />
-                    <MembersList id={props.id} />
+                    <InviteMember id={props.id} onSuccess={() => setRefreshMembersList(true)} />
+                    <MembersList id={props.id} update={refreshMembersList} afterUpdate={() => setRefreshMembersList(false)} />
                 </Modal.Body>
             </Modal>
         </>

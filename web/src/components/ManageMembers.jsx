@@ -22,6 +22,7 @@ function Members(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <InviteMember id={props.id} onSuccess={() => setRefreshMembersList(true)} />
+                    <br />
                     <MembersList id={props.id} update={refreshMembersList} afterUpdate={() => setRefreshMembersList(false)} />
                 </Modal.Body>
             </Modal>

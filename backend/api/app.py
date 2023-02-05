@@ -1,6 +1,7 @@
 from flask import Flask, url_for
 from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager
+from flask_cors import CORS
 from api.models import db, ma
 from api.config import DevConfig, ProdConfig
 import os
@@ -10,6 +11,7 @@ from api.routes.issues import issues_endpoint
 from api.routes.user import user_endpoint
 
 app = Flask(__name__)
+CORS(app)
 if os.environ.get("FLASK_DEBUG") == "1":
     app.config.from_object(DevConfig)
 else:

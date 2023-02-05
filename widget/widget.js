@@ -1,5 +1,3 @@
-
-
 injectCSS("style.css")
 
 /*  
@@ -78,6 +76,7 @@ h2_title.classList = "title";
 h2_title.innerText = "Report an issue";
 
 const form_issue_page = document.createElement("form");
+form_issue_page.addEventListener("submit", sendIssue)
 const textarea_issue_description = document.createElement("textarea");
 textarea_issue_description.classList = "input";
 textarea_issue_description.setAttribute("rows", "5")
@@ -101,6 +100,14 @@ button_send.classList = "button-icon no-stretch primary";
 button_send.setAttribute("type", "submit")
 button_send.innerText = "Send"
 
+/* Success page */
+const div_success_page = document.createElement("div");
+div_success_page.style.display = "none";
+
+const text_success = document.createTextNode("Thank you!\nYour issue has been submitted.")
+
+div_success_page.appendChild(text_success)
+
 form_issue_page.appendChild(textarea_issue_description)
 form_issue_page.appendChild(document.createElement("br")) /* line break */
 form_issue_page.appendChild(document.createElement("br")) /* line break */
@@ -118,11 +125,43 @@ div_widget_popup.appendChild(button_close_widget);
 div_widget_popup.appendChild(ul_button_list);
 
 div_widget_popup.appendChild(div_issue_page);
+div_widget_popup.appendChild(div_success_page);
 
 div_widget_popup.appendChild(document.createElement("br")) /* line break */
 div_widget_popup.appendChild(div_footer)
 document.body.appendChild(div_widget_popup);
 
+
+const token = document.currentScript.getAttribute("token")
+const api_url = (document.currentScript.getAttribute("api") + "/" + token) || ("http://localhost:5000/v1/issues/" + token)
+let tag = ""
+
+function sendIssue(event) {
+    event.preventDefault();
+    console.log(event)
+    fetch("http://localhost:5000/v1/issues/" + token, {
+        method: "POST",
+        mode: "cors",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            description: textarea_issue_description.value,
+            tag: tag
+        }),
+
+    }).then((response) => {
+        if (!response.ok) {
+            console.log(response.error)
+        }
+        return response.json();
+    })
+        .then(data => {
+            console.log(data);
+            showSuccess();
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 
 function openWidget() {
     if (div_widget_popup.style.display == "block") {
@@ -133,13 +172,26 @@ function openWidget() {
 }
 
 function closeWidget() {
+    goToListPage();
     div_widget_popup.style.display = "none";
+    div_success_page.style.display = "none";
+}
+
+function showSuccess() {
+    ul_button_list.style.display = "none";
+    div_issue_page.style.display = "none";
+    button_close_widget.style.display = "block";
+    tag = ""
+    div_success_page.style.display = "block";
+
+
 }
 
 function goToListPage() {
     ul_button_list.style.display = "block";
     div_issue_page.style.display = "none";
     button_close_widget.style.display = "block";
+    tag = ""
 }
 
 function goToIssuePage() {
@@ -149,6 +201,7 @@ function goToIssuePage() {
     h2_title.innerText = "Report an issue"
     button_screenshot.style.display = "inline-block";
     textarea_issue_description.setAttribute("placeholder", "What is your issue?")
+    tag = "bug"
 }
 
 function goToQuestionPage() {
@@ -158,6 +211,7 @@ function goToQuestionPage() {
     button_screenshot.style.display = "none";
     h2_title.innerText = "Question";
     textarea_issue_description.setAttribute("placeholder", "What is your question?")
+    tag = "question"
 }
 
 function goToOtherPage() {
@@ -167,6 +221,7 @@ function goToOtherPage() {
     button_screenshot.style.display = "none";
     h2_title.innerText = "Other";
     textarea_issue_description.setAttribute("placeholder", "What is on your mind?")
+    tag = "other"
 }
 
 function takeScreenshot() {

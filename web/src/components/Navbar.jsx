@@ -49,6 +49,9 @@ function NavigationMenu() {
                 <Navbar.Link active={location.pathname == "/about"}>
                     <Link to="/about">About</Link>
                 </Navbar.Link>
+                <Navbar.Link active={location.pathname == "/docs"}>
+                    <Link to="/docs">Docs</Link>
+                </Navbar.Link>
             </Navbar.Collapse>
         </Navbar>
     )

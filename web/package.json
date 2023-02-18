@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mdx-js/rollup": "^2.3.0",
+    "@tailwindcss/typography": "^0.5.9",
     "axios": "^1.2.3",
     "flowbite": "^1.6.2",
     "flowbite-react": "^0.3.7",

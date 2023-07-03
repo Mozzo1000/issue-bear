@@ -1,4 +1,4 @@
-import { Card, Button, Avatar, Badge, Spinner } from 'flowbite-react';
+import { Card, Button, Avatar, Badge, Spinner, Tooltip } from 'flowbite-react';
 import React, { useState, useEffect } from 'react'
 import projectsService from '../services/projects.service';
 import { useToast } from '../useToast';
@@ -36,6 +36,12 @@ function IssuePane(props) {
         return <Badge color={color}>{value}</Badge>
     }
 
+    const onClickEmail = (event, desc, address) => {
+        var subject = "[Issue Bear] - Feedback " + desc.substring(0, 20) + "..."
+        var body = "%0D%0AOriginal feedback:%0D%0A" + desc;
+        window.location.href = "mailto:" + address + "?subject=" + subject + "&body=" + body;
+    }
+
     return (
         <div>
             <h1 className="text-lg font-bold pb-2">Issues</h1>
@@ -63,7 +69,9 @@ function IssuePane(props) {
                                         }
                                     </div>
                                     <div className="flex flex-row justify-between">
-                                        <Button className="basis-1/4" disabled={!item.email}>Reply</Button>
+                                        <Tooltip content={item.email ? ("Reply to the user") : ("This user has not provided any email")}>
+                                            <Button className="basis-1/4" disabled={!item.email} onClick={(e) => onClickEmail(e, item.description, item.email)}>Reply</Button>
+                                        </Tooltip>
                                         <Button color="failure" className="">Delete</Button>
                                     </div>
                                 </Card>

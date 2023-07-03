@@ -145,7 +145,8 @@ function sendIssue(event) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
             description: textarea_issue_description.value,
-            tag: tag
+            tag: tag,
+            email: input_issue_email.value
         }),
 
     }).then((response) => {

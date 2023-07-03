@@ -9,6 +9,7 @@ function IssuePane(props) {
     const toast = useToast(4000);
 
     useEffect(() => {
+        setContent("");
         projectsService.getIssues(props.id).then(
             response => {
                 setContent(response.data);
@@ -38,7 +39,7 @@ function IssuePane(props) {
     return (
         <div>
             <h1 className="text-lg font-bold pb-2">Issues</h1>
-            {content &&
+            {content ? (
                 <>
                     <div className="flex flex-col space-y-10">
                         {content.issues.map(item => {
@@ -71,12 +72,13 @@ function IssuePane(props) {
                     </div>
                     {content.issues.length <= 0 &&
                         <>
-                            <p>No issues found</p>
                             <TokenInfoCTA id={props.id} />
                         </>
                     }
                 </>
-            }
+            ): (
+                <Spinner/>
+            )}
         </div >
     )
 }

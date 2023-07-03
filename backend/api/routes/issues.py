@@ -11,7 +11,8 @@ def add_issue(token):
 
     email = None
     if "email" in request.json:
-        email = request.json["email"]
+        if request.json["email"]:
+            email = request.json["email"]
     new_issue = Issue(description=request.json["description"], email=email, tag=request.json["tag"], project_id=project.id)
     new_issue.save_to_db()
     return jsonify({'message': 'New issue added.'}), 200

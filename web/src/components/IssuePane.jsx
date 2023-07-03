@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import projectsService from '../services/projects.service';
 import { useToast } from '../useToast';
 import TokenInfoCTA from './TokenInfoCTA';
+import { HiReply, HiArchive } from 'react-icons/hi';
 
 function IssuePane(props) {
     const [content, setContent] = useState();
@@ -70,9 +71,9 @@ function IssuePane(props) {
                                     </div>
                                     <div className="flex flex-row justify-between">
                                         <Tooltip content={item.email ? ("Reply to the user") : ("This user has not provided any email")}>
-                                            <Button className="basis-1/4" disabled={!item.email} onClick={(e) => onClickEmail(e, item.description, item.email)}>Reply</Button>
+                                            <Button className="basis-1/4" disabled={!item.email} onClick={(e) => onClickEmail(e, item.description, item.email)}><HiReply className="mr-2"/>Reply</Button>
                                         </Tooltip>
-                                        <Button color="failure" className="">Delete</Button>
+                                        <Button color="gray"><HiArchive className="mr-2"/>Archive</Button>
                                     </div>
                                 </Card>
                             )

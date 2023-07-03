@@ -182,6 +182,9 @@ function showSuccess() {
     div_issue_page.style.display = "none";
     button_close_widget.style.display = "block";
     tag = ""
+    textarea_issue_description.value = ""
+    input_issue_email.value = ""
+
     div_success_page.style.display = "block";
 
 

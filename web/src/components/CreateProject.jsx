@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Button, Modal, Label, TextInput } from 'flowbite-react'
+import { Button, Modal, Label, TextInput, Tooltip } from 'flowbite-react'
 import ProjectsService from '../services/projects.service';
 import { useToast } from '../useToast';
+import { HiPlus } from 'react-icons/hi';
 
 function CreateProject(props) {
     const [showModal, setShowModal] = useState(false);
@@ -36,7 +37,9 @@ function CreateProject(props) {
 
     return (
         <>
-            <Button onClick={onClickShowModal}>Create project</Button>
+            <Tooltip content="Create project">
+                <Button outline onClick={onClickShowModal}><HiPlus className="" /></Button>
+            </Tooltip>
             <Modal show={showModal} size="md" onClose={onClickShowModal}>
                 <Modal.Header>
                     Create project

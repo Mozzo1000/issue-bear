@@ -41,7 +41,14 @@ function ProjectList(props) {
 
     return (
         <div className="w-48 space-y-4">
-            <h1 className="text-lg font-bold indent-4">Projects</h1>
+            <div className="flex">
+                <div className="flex-1">
+                    <h1 className="text-xl font-bold indent-4">Projects</h1>
+                </div>
+                <div className="flex-1">
+                    <CreateProject onSuccess={() => getList()} />
+                </div>
+            </div>
             <ListGroup>
                 {list?.map(item => {
                     return <ListGroup.Item key={item.id} onClick={() => selectProject(item)} active={item.id == activeProject}>
@@ -49,7 +56,6 @@ function ProjectList(props) {
                     </ListGroup.Item>
                 })}
             </ListGroup>
-            <CreateProject onSuccess={() => getList()} />
         </div>
     )
 }

@@ -23,6 +23,9 @@ function ProjectList(props) {
         ProjectsService.getAll().then(
             response => {
                 setList(response.data);
+                if (response.data.length > 0) {
+                    selectProject(response.data[0])
+                }
             },
             error => {
                 const resMessage =

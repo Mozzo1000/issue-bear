@@ -20,7 +20,7 @@ function Dashboard() {
                         {project ? (
                             <IssuePane id={project.id} />
                         ) : (
-                            <h1 className="text-4xl font-bold leading-none tracking-tight">Select a project to view it's issues</h1>
+                            <h1 className="text-4xl font-bold leading-none tracking-tight">Create a project to get started!</h1>
                         )}
                     </div>
                 </div>

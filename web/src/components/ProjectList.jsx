@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import ProjectsService from '../services/projects.service';
 import { useToast } from '../useToast';
 import CreateProject from './CreateProject';
+import { HiGlobe } from 'react-icons/hi';
 
 function ProjectList(props) {
     const [list, setList] = useState();
@@ -39,6 +40,14 @@ function ProjectList(props) {
         )
     };
 
+    function getSiteIcon(url) {
+        if (url) {
+            return <img src={"https://t2.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=" + url}/>
+        } else {
+            return <HiGlobe />
+        }
+    }
+
     return (
         <div className="w-48 space-y-4">
             <div className="flex">
@@ -51,8 +60,10 @@ function ProjectList(props) {
             </div>
             <ListGroup>
                 {list?.map(item => {
-                    return <ListGroup.Item key={item.id} onClick={() => selectProject(item)} active={item.id == activeProject}>
-                        {item.name}
+                    return <ListGroup.Item key={item.id} onClick={() => selectProject(item)} active={item.id == activeProject} icon={(e) => getSiteIcon(item.url)}>
+                        <div className="ml-2">
+                            {item.name}
+                        </div>
                     </ListGroup.Item>
                 })}
             </ListGroup>

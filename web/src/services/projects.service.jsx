@@ -31,6 +31,10 @@ const getMembers = (id) => {
     return axios.get(API_URL + "/" + id + "/members", { headers: authHeader() })
 };
 
+const edit = (id, data) => {
+    return axios.patch(API_URL + "/" + id, data, { headers: authHeader() });
+  };
+
 export default {
     get,
     getAll,
@@ -39,4 +43,5 @@ export default {
     generateToken,
     addMember,
     getMembers,
+    edit,
 };

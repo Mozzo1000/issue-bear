@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import IssuePane from '../components/IssuePane';
 import ProjectList from '../components/ProjectList'
 import ProjectPane from '../components/ProjectPane';
+import WelcomeModal from '../components/WelcomeModal';
 
 function Dashboard() {
     const [project, setProject] = useState();
@@ -25,6 +26,7 @@ function Dashboard() {
                     </div>
                 </div>
             </div>
+            <WelcomeModal />
         </div>
     )
 }

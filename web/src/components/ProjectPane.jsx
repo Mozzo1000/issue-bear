@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react'
 import ProjectsService from '../services/projects.service';
 import { useToast } from '../useToast';
 import ManageMembers from './ManageMembers';
-import { HiRefresh } from 'react-icons/hi';
+import { HiRefresh, HiExternalLink } from 'react-icons/hi';
 import EditProject from './EditProject';
+import { Link } from 'react-router-dom';
 
 function ProjectPane(props) {
     const [openTokenModal, setOpenTokenModal] = useState(false);
@@ -56,7 +57,14 @@ function ProjectPane(props) {
             {props.project &&
                 <>
                     <div className="flex flex-row justify-between">
-                        <h1 className="text-lg font-bold pb-2">{props.project.name}</h1>
+                        <div className="flex flex-row">
+                            <h1 className="text-lg font-bold pb-2">{props.project.name}</h1>
+                            {props.project.url &&
+                                <Tooltip content="Open website">
+                                    <Link to={props.project.url} target="_blank" rel="noopener noreferrer"><HiExternalLink className="ml-1 w-6 h-6"/></Link>
+                                </Tooltip>
+                            }
+                        </div>
                         <ManageMembers btnText="Share" id={props.project.id} />
                         <Tooltip content="Refresh issues">
                             <Button size="sm" color="gray" onClick={props.onRefresh}><HiRefresh/></Button>

@@ -42,6 +42,26 @@ function EditProject(props) {
         )
     };
 
+    const removeProject = () => {
+        ProjectsService.remove(props.project.id).then(
+            response => {
+                toggleModal();
+                console.log(response.data.message)
+                toast("success", response.data.message + ". Refresh the page for changes to take effect.");
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                toggleModal();
+                toast("error", resMessage);
+            }
+        )
+    };
+
     return (
         <>
             <Dropdown.Item onClick={toggleModal}>
@@ -64,6 +84,9 @@ function EditProject(props) {
                                 <Label htmlFor="url" value="Link to website" />
                             </div>
                             <TextInput id="url" type="text" placeholder="https://google.com" required={false} value={url} onChange={e => setUrl(e.target.value)} />
+                        </div>
+                        <div>
+                            <Button onClick={removeProject} color="failure">Remove project</Button>
                         </div>
                         <div className="flex flex-row space-x-4">
                             <Button type="submit">Save</Button>

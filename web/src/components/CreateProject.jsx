@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button, Modal, Label, TextInput, Tooltip } from 'flowbite-react'
 import ProjectsService from '../services/projects.service';
 import { useToast } from '../useToast';
-import { HiPlus } from 'react-icons/hi';
+import { HiPlus, HiQuestionMarkCircle } from 'react-icons/hi';
 
 function CreateProject(props) {
     const [showModal, setShowModal] = useState(false);
@@ -56,7 +56,12 @@ function CreateProject(props) {
                         </div>
                         <div>
                             <div className="mb-2 block">
-                                <Label htmlFor="url" value="Link to website" />
+                                <span className="inline-flex items-center">
+                                    <Label htmlFor="url" value="Link to website"/>
+                                    <Tooltip content="Add a link to your website. The websites favicon will also be displayed in the projects lists." placement="right">
+                                        <HiQuestionMarkCircle className="ml-1"/>
+                                    </Tooltip>
+                                </span>
                             </div>
                             <TextInput id="url" type="text" placeholder="https://google.com" required={false} value={url} onChange={e => setUrl(e.target.value)} />
                         </div>

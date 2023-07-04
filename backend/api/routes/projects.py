@@ -96,6 +96,21 @@ def add_member(id):
     except:
         return jsonify({'message': 'Something went wrong'}), 500
 
+@projects_endpoint.route('/v1/projects/<project_id>/members/<member_id>', methods=["DELETE"])
+@jwt_required()
+def remove_member(project_id, member_id):
+    current_user = User.find_by_email(get_jwt_identity())
+    project = Project.query.filter(Project.id==project_id, Project.members.any(id=current_user.id)).first()
+
+    member_to_be_removed = User.query.filter(User.id==member_id).first()
+    project.members.remove(member_to_be_removed)
+    
+    try:
+        project.save_to_db()
+        return jsonify({'message': 'Member was removed successfully.'}), 200
+    except:
+        return jsonify({'message': 'Something went wrong'}), 500
+
 @projects_endpoint.route('/v1/projects/<id>/token', methods=["PUT"])
 @jwt_required()
 def generate_new_token(id):

@@ -31,7 +31,24 @@ function MembersList(props) {
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
-                onClickShowModal();
+                toast("error", resMessage);
+            }
+        )
+    };
+
+    const removeMember = (member_id) => {
+        ProjectsService.removeMember(props.id, member_id).then(
+            response => {
+                toast("success", response.data.message)
+                props.onRemoval();
+            },
+            error => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
                 toast("error", resMessage);
             }
         )
@@ -53,7 +70,7 @@ function MembersList(props) {
                                         {item.email}
                                     </div>
                                 </div></Avatar>
-                            <Button color="failure">Remove</Button>
+                            <Button color="failure" onClick={()=>removeMember(item.id)}>Remove</Button>
 
                         </div>
                         <hr className="m-2" />

@@ -3,6 +3,7 @@ import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from "../assets/logo.svg";
 import AuthService from '../services/auth.service';
+import FeedbackButton from './FeedbackButton';
 
 function NavigationMenu() {
     const currentUser = AuthService.getCurrentUser()
@@ -21,7 +22,8 @@ function NavigationMenu() {
                     Issue Bear
                 </span>
             </Navbar.Brand>
-            <div className="flex items-center md:order-2">
+            <div className="flex items-center gap-x-10 md:order-2" >
+                <FeedbackButton/>
                 <Dropdown arrowIcon={false} inline={true} label={<Avatar alt="User settings" rounded={true} />}>
                     <Dropdown.Header>
                         <span className="block text-sm">

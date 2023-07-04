@@ -50,6 +50,7 @@ class Issue(db.Model):
     tag = db.Column(db.String, nullable=False, default="other")
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
+    archived = db.Column(db.Boolean, default=False)
 
     def save_to_db(self):
         db.session.add(self)

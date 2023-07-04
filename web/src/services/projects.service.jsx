@@ -39,6 +39,10 @@ const remove = (id) => {
     return axios.delete(API_URL + "/" + id, { headers: authHeader() });
 };
 
+const removeMember = (project_id, member_id) => {
+    return axios.delete(API_URL + "/" + project_id + "/members/" + member_id, { headers: authHeader() });
+};
+
 export default {
     get,
     getAll,
@@ -49,4 +53,5 @@ export default {
     getMembers,
     edit,
     remove,
+    removeMember,
 };

@@ -38,7 +38,7 @@ function CreateProject(props) {
     return (
         <>
             <Tooltip content="Create project">
-                <Button outline onClick={onClickShowModal}><HiPlus className="" /></Button>
+                <Button size="sm" className="ml-2" outline onClick={onClickShowModal}><HiPlus /></Button>
             </Tooltip>
             <Modal show={showModal} size="md" onClose={onClickShowModal}>
                 <Modal.Header>

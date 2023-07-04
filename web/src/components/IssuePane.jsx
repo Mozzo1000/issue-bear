@@ -53,8 +53,11 @@ function IssuePane(props) {
                             return (
                                 <Card key={item.id}>
                                     <div className="flex flex-col space-y-2">
-                                        <div className="flex flex-wrap">
+                                        <div className="flex justify-between">
                                             {renderTagBadge(item.tag)}
+                                            <p className="font-semibold text-gray-800 text-xs">
+                                                {new Date(item.created_at).toLocaleDateString("en", {year: "numeric", day: "2-digit", month: "long"})}
+                                            </p>
                                         </div>
                                         <p>{item.description}</p>
                                         {item.email &&

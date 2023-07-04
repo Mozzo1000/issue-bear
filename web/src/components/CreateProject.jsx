@@ -40,7 +40,7 @@ function CreateProject(props) {
             <Tooltip content="Create project">
                 <Button size="sm" className="ml-2" outline onClick={onClickShowModal}><HiPlus /></Button>
             </Tooltip>
-            <Modal show={showModal} size="md" onClose={onClickShowModal}>
+            <Modal show={showModal} size="md" onClose={onClickShowModal} root={document.body}>
                 <Modal.Header>
                     Create project
                 </Modal.Header>

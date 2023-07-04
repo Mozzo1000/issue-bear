@@ -49,6 +49,7 @@ class Issue(db.Model):
     email = db.Column(db.String, nullable=True)
     tag = db.Column(db.String, nullable=False, default="other")
     project_id = db.Column(db.Integer, db.ForeignKey("projects.id"))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
 
     def save_to_db(self):
         db.session.add(self)

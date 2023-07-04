@@ -33,7 +33,11 @@ const getMembers = (id) => {
 
 const edit = (id, data) => {
     return axios.patch(API_URL + "/" + id, data, { headers: authHeader() });
-  };
+};
+
+const remove = (id) => {
+    return axios.delete(API_URL + "/" + id, { headers: authHeader() });
+};
 
 export default {
     get,
@@ -44,4 +48,5 @@ export default {
     addMember,
     getMembers,
     edit,
+    remove,
 };

@@ -12,6 +12,8 @@ function CreateProject(props) {
 
     const onClickShowModal = () => {
         setShowModal(!showModal);
+        setName("");
+        setUrl("")
     };
 
     const onSubmit = (e) => {

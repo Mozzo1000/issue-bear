@@ -71,6 +71,7 @@ function IssuePane(props) {
                             <TokenInfoCTA id={props.id} />
                         </>
                     }
+                    {content.issues.length > 0 &&
                     <Accordion collapseAll>
                         <Accordion.Panel>
                             <Accordion.Title>
@@ -86,6 +87,7 @@ function IssuePane(props) {
                             </Accordion.Content>
                         </Accordion.Panel>
                     </Accordion>
+                    }
                     </div>
                 </>
             ): (

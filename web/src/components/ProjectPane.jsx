@@ -4,6 +4,7 @@ import ProjectsService from '../services/projects.service';
 import { useToast } from '../useToast';
 import ManageMembers from './ManageMembers';
 import { HiRefresh } from 'react-icons/hi';
+import EditProject from './EditProject';
 
 function ProjectPane(props) {
     const [openTokenModal, setOpenTokenModal] = useState(false);
@@ -41,7 +42,6 @@ function ProjectPane(props) {
         }
     }, [props.project])
 
-
     const copyTokenToClipboard = () => {
         navigator.clipboard.writeText(tokenText);
         toast("success", "Token copied to clipboard!")
@@ -65,9 +65,7 @@ function ProjectPane(props) {
                             <Dropdown.Item onClick={toggleTokenModal}>
                                 Token
                             </Dropdown.Item>
-                            <Dropdown.Item>
-                                Edit
-                            </Dropdown.Item>
+                            <EditProject project={props.project} />
                         </Dropdown>
                     </div>
                     <Modal show={openTokenModal} size="md" popup={true} onClose={toggleTokenModal}>

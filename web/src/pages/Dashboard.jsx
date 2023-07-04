@@ -7,6 +7,13 @@ import WelcomeModal from '../components/WelcomeModal';
 function Dashboard() {
     const [project, setProject] = useState();
 
+    const refreshIssues = () => {
+        const oldProject = project;
+        console.log(project)
+        setProject();
+        setTimeout(() => {  setProject(oldProject) }, 1);
+    };
+
     return (
         <div className="container mx-auto py-10">
             <div className="flex flex-wrap space-y-5 lg:space-y-0">
@@ -15,7 +22,7 @@ function Dashboard() {
                 </div>
                 <div className="basis-full lg:basis-1/2 divide-y space-y-4 grid grid-flow-row auto-rows-max">
                     <div>
-                        <ProjectPane project={project} />
+                        <ProjectPane project={project} onRefresh={() => refreshIssues()}/>
                     </div>
                     <div className="">
                         {project ? (

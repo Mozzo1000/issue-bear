@@ -108,3 +108,29 @@ def generate_new_token(id):
         return jsonify({'message': 'New token generated for project.', 'token': new_token}), 200
     except:
         return jsonify({'message': 'Something went wrong'}), 500
+
+@projects_endpoint.route("/v1/projects/<id>", methods=["PATCH"])
+@jwt_required()
+def edit_project(id):
+    current_user = User.find_by_email(get_jwt_identity())
+    project = Project.query.filter(Project.id==id, Project.members.any(id=current_user.id)).first()
+
+    if request.json:
+        if "name" in request.json:
+            project.name = request.json["name"]
+        if "url" in request.json:
+            project.url = request.json["url"]
+
+        try:
+            project.save_to_db()
+            return jsonify({'message': 'Project changed sucessfully'}), 200
+        except:
+            return jsonify({
+                    "error": "Unkown error",
+                    "message": "Unkown error occurred"
+        }), 500
+    else:
+        return jsonify({
+                    "error": "Bad request",
+                    "message": "name and/or url not given"
+        }), 400

@@ -25,8 +25,8 @@ def remove_issue(id):
     project = Project.query.filter(Project.id==issue.project_id, Project.members.any(id=current_user.id)).first()
     print(project)
     if project:
-        db.session.delete(issue)
+        issue.archived = True
         db.session.commit()
-        return jsonify({'message': 'Issue has been removed.'}), 200
+        return jsonify({'message': 'Issue has been archived.'}), 200
     else:
-        return jsonify({'message': 'Unable to delete, issue does not belong to a project you are a member of.'}), 400
+        return jsonify({'message': 'Unable to archive, issue does not belong to a project you are a member of.'}), 400

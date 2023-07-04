@@ -70,7 +70,7 @@ function MembersList(props) {
                                         {item.email}
                                     </div>
                                 </div></Avatar>
-                            <Button color="failure" onClick={()=>removeMember(item.id)}>Remove</Button>
+                            <Button color="failure" onClick={()=>removeMember(item.id)} disabled={item.email == JSON.parse(localStorage.getItem("ib_user")).email}>Remove</Button>
 
                         </div>
                         <hr className="m-2" />

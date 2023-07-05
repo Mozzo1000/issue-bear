@@ -11,6 +11,25 @@ user_projects = db.Table("user_projects",
                         db.Column("project_id", db.Integer, db.ForeignKey("projects.id")))
 
 
+
+class Verification(db.Model):
+    __tablename__ = "verification"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    status = db.Column(db.String, default="unverified")
+    code = db.Column(db.String, nullable=True)
+    code_valid_until = db.Column(db.DateTime, nullable=True)
+
+    def save_to_db(self):
+        db.session.add(self)
+        db.session.commit()
+
+class VerificationSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Verification
+        fields = ("status",)
+
+
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -19,6 +38,8 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     role = db.Column(db.String, default="user")
     status = db.Column(db.String, default="active")
+    verification = db.relationship("Verification", uselist=False, backref="verification")
+
 
     def save_to_db(self):
         db.session.add(self)
@@ -37,10 +58,10 @@ class User(db.Model):
         return check_password_hash(hash, password)
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
+    verification = ma.Nested(VerificationSchema())
     class Meta:
         model = User
-        fields = ("id", "name", "email", "role", "status")
-
+        fields = ("id", "name", "email", "role", "status", "verification")
 
 class Issue(db.Model):
     __tablename__ = "issues"

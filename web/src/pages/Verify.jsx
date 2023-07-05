@@ -1,5 +1,5 @@
 import { Button, Label, TextInput, Card } from 'flowbite-react'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Logo from "../assets/logo.svg";
 import { useNavigate, useLocation} from 'react-router-dom';
 import AuthService from "../services/auth.service";
@@ -13,9 +13,10 @@ function Login() {
     let location = useLocation();
     const toast = useToast(4000);
 
-    if (location.state) {
+    useEffect(() => {
         setEmail(location.state.email);
-    }
+    }, [location.state])
+    
 
     const handleVerify = (e) => {
         e.preventDefault();

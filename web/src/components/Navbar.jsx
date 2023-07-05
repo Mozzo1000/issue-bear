@@ -7,7 +7,7 @@ import FeedbackButton from './FeedbackButton';
 
 function NavigationMenu() {
     const currentUser = AuthService.getCurrentUser()
-    const withouSidebarRoutes = ["/login", "/register"];
+    const withouSidebarRoutes = ["/login", "/register", "/verify"];
     const navigate = useNavigate()
 
     const { pathname } = useLocation();

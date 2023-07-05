@@ -33,9 +33,17 @@ const getCurrentUser = () => {
     return JSON.parse(localStorage.getItem("ib_user"));
 };
 
+const verify = (email, code) => {
+    return axios.post(API_URL + "verify", {
+        email,
+        code,
+    });
+};
+
 export default {
     register,
     login,
     logout,
     getCurrentUser,
+    verify,
 };

@@ -24,6 +24,10 @@ function Login() {
                         error.response.data.message) ||
                     error.message ||
                     error.toString();
+
+                if (error.response.status == "403" && error.response.data.message == "Account has not been verified.") { 
+                    navigate("/verify", {state: {"email": username}})
+                }
                 toast("error", resMessage);
             }
         )

@@ -38,7 +38,7 @@ function NavigationMenu() {
                         Settings
                     </Dropdown.Item>
                     <Dropdown.Divider />
-                    <Dropdown.Item className="text-red-600" onClick={() => (AuthService.logout(), navigate(0))}>
+                    <Dropdown.Item className="text-red-600" onClick={() => (AuthService.logout(), navigate("/"))}>
                         Sign out
                     </Dropdown.Item>
                 </Dropdown>

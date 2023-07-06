@@ -15,7 +15,7 @@ function Login() {
         e.preventDefault();
         AuthService.login(username, password).then(
             response => {
-                navigate("/")
+                navigate("/dashboard")
             },
             error => {
                 const resMessage =

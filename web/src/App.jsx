@@ -7,6 +7,7 @@ import NavigationMenu from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
 import Docs from "./pages/Docs";
 import Verify from "./pages/Verify";
+import Home from "./pages/Home";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -19,10 +20,11 @@ function App() {
       <Router>
         <NavigationMenu />
         <Routes>
+          <Route index element={<Home/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verify" element={<Verify />} />
-          <Route index element={<PrivateRoute><Dashboard /></PrivateRoute>} />
+          <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/docs" element={<Docs />} />
         </Routes>
       </Router>

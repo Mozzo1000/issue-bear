@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import Docs from "./pages/Docs";
 import Verify from "./pages/Verify";
 import Home from "./pages/Home";
+import Footer from "./components/Footer";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -16,7 +17,7 @@ function PrivateRoute({ children }) {
 
 function App() {
   return (
-    <div>
+    <div className="min-h-screen">
       <Router>
         <NavigationMenu />
         <Routes>
@@ -29,6 +30,7 @@ function App() {
         </Routes>
       </Router>
       <ToastContainer />
+      <Footer />
     </div>
   )
 }

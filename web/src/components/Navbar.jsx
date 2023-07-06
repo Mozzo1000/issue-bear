@@ -1,4 +1,4 @@
-import { Avatar, Dropdown, Navbar } from 'flowbite-react'
+import { Avatar, Dropdown, Navbar, Button } from 'flowbite-react'
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from "../assets/logo.svg";
@@ -24,6 +24,7 @@ function NavigationMenu() {
             </Navbar.Brand>
             <div className="flex items-center gap-x-10 md:order-2" >
                 <FeedbackButton/>
+                {currentUser ? (
                 <Dropdown arrowIcon={false} inline={true} label={<Avatar alt="User settings" rounded={true} />}>
                     <Dropdown.Header>
                         <span className="block text-sm">
@@ -41,6 +42,9 @@ function NavigationMenu() {
                         Sign out
                     </Dropdown.Item>
                 </Dropdown>
+                ) : (
+                    <Button as={Link} to="/login">Sign in</Button>
+                )}
             </div>
 
             <Navbar.Toggle />

@@ -9,6 +9,8 @@ import Docs from "./pages/Docs";
 import Verify from "./pages/Verify";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 function PrivateRoute({ children }) {
   const auth = AuthService.getCurrentUser()
@@ -27,6 +29,8 @@ function App() {
           <Route path="/verify" element={<Verify />} />
           <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
           <Route path="/docs" element={<Docs />} />
+          <Route path="/tos" element={<TermsOfService />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
         </Routes>
       </Router>
       <ToastContainer />

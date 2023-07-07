@@ -9,6 +9,12 @@ function Footer() {
             <FooterFL.Link href="/about">
                 About
             </FooterFL.Link>
+            <FooterFL.Link href="/tos">
+                Terms of Service
+            </FooterFL.Link>
+            <FooterFL.Link href="/privacy">
+                Privacy policy
+            </FooterFL.Link>
         </FooterFL.LinkGroup>
 
     </FooterFL>
